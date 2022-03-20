@@ -98,8 +98,8 @@ class CartProductInterface:
             return CartProductInterface.get_cart_products(cart_id)
         raise HTTPException(400, "Product already in cart")
 
-    def update_cart_products(cart_id: int, cart_update: CartProduct) -> Cart:
-        if cart_id in _cartProduct:
-            _cartProduct[cart_id].update(cart_update.dict())
-            return CartInterface.get_cartProduct(cart_id)
+    def update_cart_products(cart_id: int, cart_update: CartProduct) -> List:
+        if cart_id in _cartProduct and cart_update.product_name in _cartProduct[cart_id]:
+            _cartProduct[cart_id][cart_update.product_name].update(cart_update.dict())
+            return CartProductInterface.get_cart_products(cart_id)
         raise HTTPException(404, "Cart not found")

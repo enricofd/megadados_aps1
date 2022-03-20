@@ -59,5 +59,5 @@ async def delete_from_cart(cart_id: int, item_name: str):
 # - PATCH: editar quantidade
 @router.patch("/{cart_id}/{item_name}", response_model=CartProductNoID)
 async def update_product_cart(cart_id: int, cart_update: CartProductNoID):
-    cart_product = CartProductInterface.update_cart_product(cart_id, cart_update)
+    cart_product = CartProductInterface.update_cart_products(cart_id, cart_update)
     return cart_product 
