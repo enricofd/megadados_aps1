@@ -1,6 +1,7 @@
 from fastapi import APIRouter
+from dummy_db import ProductInterface
 
-from models.product import Product, ProductCreation
+from models.product import Product
 
 
 router = APIRouter(prefix='/product')
@@ -10,10 +11,10 @@ router = APIRouter(prefix='/product')
 # POST: criar produto
 
 
-@router.post("", response_model=Product)
-async def create_product(product: ProductCreation):
-    product = Product(product_id=1, **product.dict())
-    product.product_id = 123
+# @router.post("", response_model=Product)
+@router.post("/", response_model=Product)
+async def create_product(product_creation: Product):
+    product = ProductInterface.create_product(product_creation)
     return product
 
 # GET: listar produtos
