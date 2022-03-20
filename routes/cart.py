@@ -5,7 +5,7 @@ router = APIRouter(prefix='/cart')
 
 # /cart
 # - POST: criar
-@router.post("")
+@router.post("/")
 async def create_cart():
     return {"POST": "CREATE_CART"}
 
