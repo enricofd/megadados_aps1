@@ -7,11 +7,15 @@ _product = {}
 
 class ProductInterface:
     @staticmethod
-    def get_product(product_name) -> Product:
+    def get_products() -> List:
+        return [Product(**product) for product in _product.values()]
+
+    @staticmethod
+    def get_product(product_name: str) -> Product:
         try:
-            return Product(**_product.get(product_name))
+            return Product(**_product[product_name])
         except:
-            return None
+            raise HTTPException(404, "Product not found")
 
     @staticmethod
     def create_product(product: Product):
@@ -21,5 +25,16 @@ class ProductInterface:
         raise HTTPException(400, "Product already exists")
 
     @staticmethod
-    def get_products() -> List:
-        return [Product(**product) for product in _product.values()]
+    def update_product(product_name: str, product_update: Product) -> Product:
+        if product_name in _product:
+            _product[product_name].update(product_update.dict())
+            return ProductInterface.get_product(product_name)
+        raise HTTPException(404, "Product not found")
+
+    @staticmethod
+    def delete_product(product_name: str) -> Product:
+        if product_name in _product:
+            product = ProductInterface.get_product(product_name)
+            del _product[product_name]
+            return product
+        raise HTTPException(404, "Product not found")
