@@ -1,7 +1,5 @@
 from fastapi import FastAPI
-from cart_router import router as cart_router
-from product_router import router as product_router
-
+from routes import cart_router, product_router
 
 app = FastAPI()
 
