@@ -24,11 +24,11 @@ Você poderá:
 tags_metadata = [
     {
         "name": "product",
-        "description": "Operações com produtos.",
+        "description": "Operações com produtos. Você pode **criar**, **atualizar**, **deletar** e **consultar** itens",
     },
     {
         "name": "cart",
-        "description": "Operações com carrinhos.",
+        "description": "Operações com carrinhos. Você pode **criar**, **atualizar**, **deletar** e **consultar** carrinhos",
     },
 ]
 
