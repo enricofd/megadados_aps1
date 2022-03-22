@@ -9,21 +9,22 @@ QuantValidator = Field(..., title="Quantidade do produto", ge=1, description="Qu
 
 
 
+
 class Cart(BaseModel):
     cart_id: int = CartIDValidator 
     user_id: int = UserIDValidator
 
+
 class CartCreation(BaseModel):
-    user_id: int = UserIDValidator
-    
-class CartNoID(BaseModel):
-    user_id: int = UserIDValidator
+    user_id: int
+
 
 class CartProduct(BaseModel):
     cart_id: int = CartIDValidator 
     product_name: str = ProdNameValidator
     quantity: int = QuantValidator
 
-class CartProductNoID(BaseModel):
-    product_name: str = ProdNameValidator
-    quantity: int = QuantValidator
+
+class CartProductUpdate(BaseModel):
+    quantity: int
+    product_name: str
