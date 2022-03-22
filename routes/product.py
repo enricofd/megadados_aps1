@@ -6,7 +6,7 @@ from models.product import Product, ProductNameless
 
 router = APIRouter(prefix="/product")
 
-@router.post("/", response_model=Product)
+@router.post("/", response_model=Product, tags=["product"])
 async def create_product(product_creation: Product):
     product = ProductInterface.create_product(product_creation)
     return product
