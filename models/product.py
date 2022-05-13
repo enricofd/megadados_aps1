@@ -1,4 +1,3 @@
-from matplotlib.cbook import file_requires_unicode
 from pydantic import BaseModel
 from pydantic.fields import Field
 
