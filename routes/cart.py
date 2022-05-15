@@ -1,7 +1,7 @@
 from typing import List
 
 from sqlalchemy.orm.session import Session
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from interfaces import CartInterface, CartProductInterface
 from models.cart import Cart, CartCreation, CartProduct, CartProductUpdate
 from fastapi.params import Body, Path
@@ -33,15 +33,19 @@ async def get_cart_products(
     return cart
 
 
-@router.post("/{cart_id}", response_model=List)
+@router.post("/{cart_id}", response_model=CartProduct)
 async def add_to_cart(
-    cart_id: int = Path(..., example=2),
     cart_product: CartProduct = Body(
         {"cart_id": 0, "product_name": "batata2001", "quantity": 2}
     ),
     db: Session = Depends(get_db),
 ):
-    cart_product = CartProductInterface.add_to_cart(db, cart_id, cart_product)
+    product_in_cart = CartProductInterface.get_cart_product(db, cart_product.cart_id, cart_product.name) is not None
+
+    if product_in_cart:
+        raise HTTPException(400, "Product already in cart")
+
+    cart_product = CartProductInterface.add_to_cart(db, cart_product)
     return cart_product
 
 

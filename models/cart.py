@@ -23,10 +23,10 @@ class CartCreation(ORMMode):
 
 class CartProduct(ORMMode):
     cart_id: int = CartIDValidator 
-    product_name: str = ProdNameValidator
+    name: str = ProdNameValidator
     quantity: int = QuantValidator
 
 
 class CartProductUpdate(ORMMode):
     quantity: int
-    product_name: str
+    name: str
