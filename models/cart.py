@@ -1,4 +1,3 @@
-from matplotlib.pyplot import title
 from pydantic import BaseModel
 from pydantic.fields import Field
 
@@ -8,22 +7,26 @@ ProdNameValidator = Field(..., title="Nome do Produto", min_length=2, max_length
 QuantValidator = Field(..., title="Quantidade do produto", ge=1, description="Quantidade de um produto")
 
 
+class ORMMode(BaseModel):
+    class Config:
+        orm_mode = True
 
-class Cart(BaseModel):
+
+class Cart(ORMMode):
     cart_id: int = CartIDValidator 
     user_id: int = UserIDValidator
 
 
-class CartCreation(BaseModel):
+class CartCreation(ORMMode):
     user_id: int
 
 
-class CartProduct(BaseModel):
+class CartProduct(ORMMode):
     cart_id: int = CartIDValidator 
     product_name: str = ProdNameValidator
     quantity: int = QuantValidator
 
 
-class CartProductUpdate(BaseModel):
+class CartProductUpdate(ORMMode):
     quantity: int
     product_name: str

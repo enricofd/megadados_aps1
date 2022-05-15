@@ -22,7 +22,6 @@ async def create_cart(
 @router.get("/", response_model=List[Cart])
 async def get_carts(db: Session = Depends(get_db)):
     carts = CartInterface.get_carts(db)
-    print(list(carts))
     return carts
 
 
@@ -46,12 +45,11 @@ async def add_to_cart(
     return cart_product
 
 
-@router.delete("/{cart_id}", response_model=Cart)
+@router.delete("/{cart_id}")
 async def delete_cart(
     cart_id: int = Path(..., example=2), db: Session = Depends(get_db)
 ):
-    cart = CartInterface.delete_cart(db, cart_id)
-    return cart
+    CartInterface.delete_cart(db, int(cart_id))
 
 
 @router.delete("/{cart_id}/{item_name}", response_model=CartProduct)
@@ -72,5 +70,6 @@ async def update_product_cart(
     ),
     db: Session = Depends(get_db),
 ):
-    cart_product = CartProductInterface.update_quantity(db, cart_id, cart_update)
+    cart_product = CartProductInterface.update_quantity(
+        db, cart_id, cart_update)
     return cart_product

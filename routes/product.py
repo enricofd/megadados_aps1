@@ -1,5 +1,4 @@
-from doctest import Example
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from interfaces import ProductInterface
 from typing import List
 from models.product import Product, ProductNameless
@@ -22,7 +21,11 @@ async def create_product(
         },
     ),
     db: Session = Depends(get_db),
-):
+):  
+    product_exists = ProductInterface.get_product(db, product_creation.name) is not None
+    if product_exists:
+        raise HTTPException(400, "Product already exists")
+
     product = ProductInterface.create_product(db, product_creation)
     return product
 
