@@ -9,7 +9,6 @@ QuantValidator = Field(..., title="Quantidade do produto", ge=1, description="Qu
 
 
 
-
 class Cart(BaseModel):
     cart_id: int = CartIDValidator 
     user_id: int = UserIDValidator

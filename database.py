@@ -10,9 +10,10 @@ if __name__ == "__main__":
 
 # https://fastapi.tiangolo.com/tutorial/sql-databases/#import-the-sqlalchemy-parts
 
-env = dict(dotenv_values('.env'))
+env = dict(dotenv_values(".env"))
 
 DB_CONNECTION_STRING = env.get("DB_CONNECTION_STRING")
+# DB_CONNECTION_STRING = "sqlite:///./sql_app.db"
 
 if not DB_CONNECTION_STRING:
     raise Exception("Could not load environment variable 'DB_CONNECTION_STRING'.")

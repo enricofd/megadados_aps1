@@ -21,8 +21,8 @@ CREATE TABLE product (
 
 DROP TABLE IF EXISTS cart_product;
 CREATE TABLE cart_product (
-	id_cart INT NOT NULL,
-    name VARCHAR(45) NOT NULL,
+	id_cart INT NOT NULL PRIMARY KEY,
+    name VARCHAR(45) NOT NULL PRIMARY KEY,
     quantity INT NOT NULL,
     CONSTRAINT fk_cart
 		FOREIGN KEY (id_cart) 

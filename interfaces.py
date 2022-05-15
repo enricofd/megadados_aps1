@@ -138,8 +138,9 @@ class CartProductInterface:
         if product_name not in _cartProduct[cart_id]:
             raise HTTPException(404, "Product not in cart")
 
-        _cartProduct[cart_id][cart_update.product_name] \
-            .update({"quantity": cart_update.quantity})
+        _cartProduct[cart_id][cart_update.product_name].update(
+            {"quantity": cart_update.quantity}
+        )
 
         return CartProductInterface.get_cart_product(cart_id, product_name)
 
