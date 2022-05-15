@@ -1,6 +1,4 @@
-from ctypes import Union
-from types import NoneType
-from typing import List
+from typing import List, Optional
 
 from models.product import Product
 from sqlalchemy.orm import Session
@@ -12,7 +10,7 @@ class ProductInterface:
         pass
 
     @staticmethod
-    def get_product(db: Session, product_name: str) -> Union[Product, NoneType]:
+    def get_product(db: Session, product_name: str) -> Optional[Product]:
         pass
 
     @staticmethod
@@ -20,9 +18,11 @@ class ProductInterface:
         pass
 
     @staticmethod
-    def update_product(db: Session, product_name: str, product_update: Product) -> Union[Product, NoneType]:
+    def update_product(
+        db: Session, product_name: str, product_update: Product
+    ) -> Optional[Product]:
         pass
 
     @staticmethod
-    def delete_product(db: Session, product_name: str) -> Union[Product, NoneType]:
+    def delete_product(db: Session, product_name: str) -> Optional[Product]:
         pass

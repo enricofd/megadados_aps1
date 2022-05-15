@@ -6,4 +6,4 @@ class Cart(Base):
     __tablename__ = "cart"
 
     id_cart = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    id_customer = Column(Integer, nullable=False, default=1)
+    user_id = Column(Integer, nullable=False, default=1)

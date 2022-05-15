@@ -8,4 +8,4 @@ INSERT INTO product (name, description, price) VALUES ('Leite em pó', 'leite em
 INSERT INTO product (name, description, price) VALUES ('Achocolatado', 'achocolatado marrom', 4.0);
 INSERT INTO product (name, description, price) VALUES ('Uvas redondinhas', 'uvas rendondas', 1.0);
 
-INSERT INTO cart (customer_id) VALUES (0);
+INSERT INTO cart (user_id) VALUES (0);

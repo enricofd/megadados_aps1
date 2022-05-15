@@ -12,13 +12,13 @@ if __name__ == "__main__":
 
 env = dict(dotenv_values(".env"))
 
-DB_CONNECTION_STRING = env.get("DB_CONNECTION_STRING")
-# DB_CONNECTION_STRING = "sqlite:///./sql_app.db"
+# DB_CONNECTION_STRING = env.get("DB_CONNECTION_STRING")
+DB_CONNECTION_STRING = "sqlite:///./sql_app.db"
 
 if not DB_CONNECTION_STRING:
     raise Exception("Could not load environment variable 'DB_CONNECTION_STRING'.")
 
-engine = create_engine(DB_CONNECTION_STRING)
+engine = create_engine(DB_CONNECTION_STRING, connect_args={"check_same_thread": False})
 
 if not database_exists(engine.url):
     print(f"Created database '{env.get('DB_DATABASE_NAME')}'")
@@ -38,3 +38,4 @@ def get_db():
 
 
 Base = declarative_base()
+

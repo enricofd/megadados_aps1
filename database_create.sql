@@ -9,7 +9,7 @@ USE mercearia;
 DROP TABLE IF EXISTS cart;
 CREATE TABLE cart (
 	id_cart INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_customer INT NOT NULL DEFAULT 1
+    user_id INT NOT NULL DEFAULT 1
 );
 
 DROP TABLE IF EXISTS product;

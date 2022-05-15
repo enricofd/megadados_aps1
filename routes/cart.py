@@ -22,6 +22,7 @@ async def create_cart(
 @router.get("/", response_model=List[Cart])
 async def get_carts(db: Session = Depends(get_db)):
     carts = CartInterface.get_carts(db)
+    print(list(carts))
     return carts
 
 

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-
-from routes import cart_router, product_router
+from h11 import Data
+from routes import cart, product
+from database import Base, engine
 
 description = """
 Uma API de carrinho de compras. A melhor API de
@@ -33,18 +34,23 @@ tags_metadata = [
     },
 ]
 
-app = FastAPI(title="MegadadosAPI",
-            description=description,
-            version="0.0.1",
-            license_info={
-                "name": "Apache 2.0",
-                "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
-            })
+app = FastAPI(
+    title="MegadadosAPI",
+    description=description,
+    version="0.0.1",
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+)
 
-@app.get('/')
+
+@app.get("/")
 async def root():
     return {"app": "megadados"}
 
 
-app.include_router(product_router)
-app.include_router(cart_router)
+app.include_router(product.router)
+app.include_router(cart.router)
+
+Base.metadata.create_all(bind=engine)
