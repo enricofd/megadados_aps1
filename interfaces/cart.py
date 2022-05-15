@@ -26,5 +26,6 @@ class CartInterface:
 
     @staticmethod
     def delete_cart(db: Session, cart_id: int) -> int:
-        db.query(CartSchema).filter(CartSchema.cart_id == cart_id).delete()
+        cart = db.query(CartSchema).filter(CartSchema.cart_id == cart_id).first()
+        db.delete(cart)
         db.commit()

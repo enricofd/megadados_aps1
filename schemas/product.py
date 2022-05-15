@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Float
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from database import Base
 
 
@@ -10,5 +10,5 @@ class Product(Base):
     description = Column(String(100), nullable=False)
     price = Column(Float(2), nullable=False)
 
-    #cart_product = relationship("CartProduct", cascade="all, delete-orphan")
+    cart_product = relationship("CartProduct", cascade="all, delete-orphan")
 

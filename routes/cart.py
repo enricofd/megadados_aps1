@@ -36,7 +36,7 @@ async def get_cart_products(
 @router.post("/{cart_id}", response_model=CartProduct)
 async def add_to_cart(
     cart_product: CartProduct = Body(
-        {"cart_id": 0, "product_name": "batata2001", "quantity": 2}
+        {"cart_id": 0, "name": "batata2001", "quantity": 2}
     ),
     db: Session = Depends(get_db),
 ):
@@ -62,6 +62,7 @@ async def delete_from_cart(
     item_name: str = Path(..., example="Beterraba"),
     db: Session = Depends(get_db),
 ):
+    
     cart_product = CartProductInterface.remove_product(db, cart_id, item_name)
     return cart_product
 

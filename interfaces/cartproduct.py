@@ -32,5 +32,7 @@ class CartProductInterface:
 
     @staticmethod
     def remove_product(db: Session, cart_id: int, product_name: str):
-        db.query(schemas.CartProduct).filter(schemas.CartProduct.cart_id == cart_id, schemas.CartProduct.name == product_name).delete()
-        db.commit()
+        product = db.query(schemas.CartProduct).filter(schemas.CartProduct.cart_id == cart_id, schemas.CartProduct.name == product_name).first()
+        if product is not None:
+            db.delete(product)
+            db.commit()

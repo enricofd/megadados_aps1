@@ -31,5 +31,6 @@ class ProductInterface:
 
     @staticmethod
     def delete_product(db: Session, product_name: str) -> Optional[Product]:
-        db.query(schemas.Product).filter(schemas.Product.name == product_name).delete()
+        product = db.query(schemas.Product).filter(schemas.Product.name == product_name).first()
+        db.delete(product)
         db.commit()
