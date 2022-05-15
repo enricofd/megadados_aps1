@@ -11,16 +11,20 @@ class CartInterface:
     def get_carts(
         db: Session,
     ) -> List[Cart]:
-        pass
+        return db.query(Cart).all()
 
     @staticmethod
     def get_cart(db: Session, cart_id: int) -> Optional[Cart]:
-        pass
+        return db.query(Cart).filter(Cart.id == cart_id).first()
 
     @staticmethod
     def create_cart(db: Session, cart_creation: CartCreation) -> Optional[Cart]:
-        pass
+        cart = Cart(**cart_creation)
+        db.add(cart)
+        db.commit()
+        db.refresh(cart)
+        return cart
 
     @staticmethod
     def delete_cart(db: Session, cart_id: str) -> Optional[Cart]:
-        pass
+        return db.query(Cart).filter(Cart.id == cart_id).delete()
