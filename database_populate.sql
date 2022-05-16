@@ -1,6 +1,6 @@
-USE mercearia;
+-- EXAMPLE TO POPULATE THE DATABASE, NOT USED IN THIS PROJECT
 
--- popular o banco de dados para fins de desenvolvimento
+USE mercearia;
 
 INSERT INTO product (name, description, price) VALUES ('Banana', 'bananas amarelas fresquinhas', 2.0);
 INSERT INTO product (name, description, price) VALUES ('Beterraba', 'beterrabas roxas fresquinhas', 3.0);
