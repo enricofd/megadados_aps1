@@ -40,20 +40,17 @@ async def add_to_cart(
     ),
     db: Session = Depends(get_db),
 ):
-    product_in_cart = (
-        CartProductInterface.get_cart_product(
-            db, cart_product.cart_id, cart_product.name
-        )
-        is not None
-    )
-
-    product_exists = ProductInterface.get_product(db, cart_product.name) is not None
-
-    if product_in_cart:
-        raise HTTPException(400, "Product already in cart")
+    product_exists = ProductInterface \
+        .get_product(db, cart_product.name) is not None
 
     if not product_exists:
         raise HTTPException(400, "Product does not exit")
+
+    product_in_cart = CartProductInterface \
+        .get_cart_product(db, cart_product.cart_id, cart_product.name) is not None
+
+    if product_in_cart:
+        raise HTTPException(400, "Product already in cart")
 
     cart_product = CartProductInterface.add_to_cart(db, cart_product)
     return cart_product
@@ -72,7 +69,6 @@ async def delete_from_cart(
     item_name: str = Path(..., example="Beterraba"),
     db: Session = Depends(get_db),
 ):
-
     cart_product = CartProductInterface.remove_product(db, cart_id, item_name)
     return cart_product
 
@@ -85,5 +81,6 @@ async def update_product_cart(
     ),
     db: Session = Depends(get_db),
 ):
-    cart_product = CartProductInterface.update_quantity(db, cart_id, cart_update)
+    cart_product = CartProductInterface \
+        .update_quantity(db, cart_id, cart_update)
     return cart_product
