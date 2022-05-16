@@ -2,7 +2,7 @@ from typing import List
 
 from sqlalchemy.orm.session import Session
 from fastapi import APIRouter, Depends, HTTPException
-from interfaces import CartInterface, CartProductInterface
+from interfaces import CartInterface, CartProductInterface, ProductInterface
 from models.cart import Cart, CartCreation, CartProduct, CartProductUpdate
 from fastapi.params import Body, Path
 from database import get_db
@@ -47,8 +47,13 @@ async def add_to_cart(
         is not None
     )
 
+    product_exists = ProductInterface.get_product(db, cart_product.name) is not None
+
     if product_in_cart:
         raise HTTPException(400, "Product already in cart")
+
+    if not product_exists:
+        raise HTTPException(400, "Product does not exit")
 
     cart_product = CartProductInterface.add_to_cart(db, cart_product)
     return cart_product
